@@ -2,13 +2,54 @@
   "name": "webpack-html",
   "version": "1.0.0",
   "description": "多页面打包的webpack脚手架",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node config/webpack.prod.js",
+    "dev": "npx webpack-dev-server --progress --config config/webpack.dev.js"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ],
+    "plugins": [
+      "transform-runtime"
+    ]
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "webpack": "^4.27.1"
-  }
+    "@webpack-cli/init": "^0.1.2",
+    "@webpack-cli/utils": "^0.1.2",
+    "autoprefixer": "^9.4.2",
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-runtime": "^6.26.0",
+    "chalk": "latest",
+    "clean-webpack-plugin": "^1.0.0",
+    "cross-env": "^5.2.0",
+    "css-loader": "^1.0.1",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^2.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "less": "^3.8.1",
+    "less-loader": "^4.1.0",
+    "mini-css-extract-plugin": "^0.4.4",
+    "ora": "^3.0.0",
+    "postcss": "^7.0.6",
+    "postcss-loader": "^3.0.0",
+    "raw-loader": "^0.5.1",
+    "style-loader": "^0.21.0",
+    "uglifyjs-webpack-plugin": "^2.0.1",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.27.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10",
+    "webpack-dev-server-output": "0.0.6"
+  },
+  "dependencies": {}
 }
