@@ -1,0 +1,14 @@
+{
+  "name": "webpack-html",
+  "version": "1.0.0",
+  "description": "多页面打包的webpack脚手架",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^4.27.1"
+  }
+}
