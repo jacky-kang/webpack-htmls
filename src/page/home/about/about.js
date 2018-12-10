@@ -1,4 +1,4 @@
-import './index.less'
+import './about.less'
 
 window.onload = function () {
   // alert('ss')

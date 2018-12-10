@@ -11,9 +11,7 @@ const rootPath = path.resolve(__dirname, '../')
 // 设置路径
 const config = {
   // 打包开始的地方,即从这里开始分析模块和资源依赖
-  entry: {
-    index: './src/page/index/index.js'
-  },
+  entry: {},
   // 输出
   output: {
     // 输出路径
@@ -95,17 +93,55 @@ const config = {
     new CleanWebpackPlugin([outDir], {
       root: rootPath,
       verbose: true
-    }),
-    new HtmlWebpackPlugin({
-      minify: {
-        collapseWhitespace: true
-      },
-      hash: true,
-      template: './src/page/index/index.html',
-      chunks: 'index',
-      inject: 'body'
     })
   ]
 }
+
+/**
+ *
+ * @param startPath  起始目录文件夹路径
+ * @param useSubdirectories
+ * @param regExp
+ * @returns {Array}
+ */
+function findSync (startPath, useSubdirectories, regExp) {
+  let result = []
+
+  function finder (dir) {
+    let files = fs.readdirSync(dir)
+    files.forEach((val) => {
+      let fPath = path.join(dir, val)
+      let stats = fs.statSync(fPath)
+      if (useSubdirectories && stats.isDirectory()) finder(fPath, useSubdirectories, regExp)
+      if (stats.isFile() && regExp.test(fPath)) result.push(fPath)
+    })
+
+  }
+
+  finder(startPath)
+  return result
+}
+
+let fileNames = findSync('./src/page', true, /\.html$/)
+fileNames.forEach(item => {
+  const dir = item.replace(/^src\/page\/([\S]+)\/([^/]+)\.html$/, '$1')
+  const html = item.replace(/^src\/page\/([\S]+)\/([^/]+)\.html$/, '$1') + '.html'
+  const js = item.replace(/^([\S]+)\.html$/, '$1.js')
+  console.log(dir)
+  console.log(item)
+  console.log(js)
+  console.log('\n')
+  config.entry[dir] = './' + js
+  config.plugins.push(new HtmlWebpackPlugin({
+    minify: {
+      collapseWhitespace: true
+    },
+    hash: true,
+    template: item,
+    filename: html,
+    chunks: dir,
+    inject: 'body'
+  }))
+})
 
 module.exports = config
